@@ -1,4 +1,4 @@
-package com.example.Innovation_academy_api;
+package Innovation.Academy.Innovation_academy_api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
