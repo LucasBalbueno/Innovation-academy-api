@@ -15,11 +15,13 @@ public class User {
     @Column (name = "user_id")
     private UUID userId;
 
-    @Column(unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
+    @Column(name = "user_password")
     private String password;
 
+    @Column(name = "user_email", unique = true)
     private String email;
 
     public UUID getUserId() {
