@@ -31,12 +31,17 @@ public class SecurityConfig {
     private RSAPrivateKey privateKey;
 
     @Bean
-    private SecurityFilterChain SecurityFilterChain (HttpSecurity http) throws Exception {
+    protected SecurityFilterChain SecurityFilterChain (HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-                .csrf(csrf -> csrf.disable())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt((Customizer.withDefaults())))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http
+                .csrf().disable()             // Desativa a proteção CSRF
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll(); // Permite todos os acessos
+//        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+//                .csrf(csrf -> csrf.disable())
+//                .oauth2ResourceServer(oauth2 -> oauth2.jwt((Customizer.withDefaults())))
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }

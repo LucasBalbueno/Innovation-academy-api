@@ -1,7 +1,7 @@
 package Innovation.Academy.Innovation_academy_api.controller;
 
-import Innovation.Academy.Innovation_academy_api.controller.dto.LoginRequest;
-import Innovation.Academy.Innovation_academy_api.controller.dto.LoginResponse;
+import Innovation.Academy.Innovation_academy_api.dto.LoginRequest;
+import Innovation.Academy.Innovation_academy_api.dto.LoginResponse;
 import Innovation.Academy.Innovation_academy_api.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
