@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/users-preferences")
+@RequestMapping("/api/users-preferences")
 public class UserPreferencesController {
 
     @Autowired
