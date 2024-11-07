@@ -1,11 +1,9 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
-import Innovation.Academy.Innovation_academy_api.dto.LoginRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Data
@@ -50,10 +48,12 @@ public class UserEntity {
     @Column(name = "day_count", nullable = false)
     private String dayCount;
 
+
     @Column(name = "user_image")
     private String userImage;
 
-    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(loginRequest.password(), this.password);
-    }
+
+//    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+//        return passwordEncoder.matches(loginRequest.password(), this.password);
+//    }
 }
