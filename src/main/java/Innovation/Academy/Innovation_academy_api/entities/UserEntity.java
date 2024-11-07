@@ -51,9 +51,4 @@ public class UserEntity {
 
     @Column(name = "user_image")
     private String userImage;
-
-
-//    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
-//        return passwordEncoder.matches(loginRequest.password(), this.password);
-//    }
 }
