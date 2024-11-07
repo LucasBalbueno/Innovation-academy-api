@@ -36,8 +36,12 @@ public class UserService {
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setEmail(userDTO.getEmail());
+        userEntity.setNumberPhone(userDTO.getNumberPhone());
         userEntity.setJob(userDTO.getJob());
+        userEntity.setTechnologies(userDTO.getTechnologies());
+        userEntity.setBiography(userDTO.getBiography());
         userEntity.setDayCount(userDTO.getDayCount());
+        userEntity.setUserImage(userDTO.getUserImage());
 
         userRepository.save(userEntity);
 
@@ -53,12 +57,16 @@ public class UserService {
             userEntity.setFirstName(userDTO.getFirstName());
             userEntity.setLastName(userDTO.getLastName());
             userEntity.setEmail(userDTO.getEmail());
+            userEntity.setNumberPhone(userDTO.getNumberPhone());
             userEntity.setJob(userDTO.getJob());
+            userEntity.setTechnologies(userDTO.getTechnologies());
+            userEntity.setBiography(userDTO.getBiography());
             userEntity.setDayCount(userDTO.getDayCount());
+            userEntity.setUserImage(userDTO.getUserImage());
 
             userRepository.save(userEntity);
-            return convertToDTO(userEntity);
 
+            return convertToDTO(userEntity);
         }
         return null;
     }
@@ -66,8 +74,6 @@ public class UserService {
     public void deleteUser(Integer id){
         userRepository.deleteById(id);
     }
-
-
 
     private UserDTO convertToDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
@@ -77,8 +83,12 @@ public class UserService {
         userDTO.setFirstName(userEntity.getFirstName());
         userDTO.setLastName(userEntity.getLastName());
         userDTO.setEmail(userEntity.getEmail());
+        userDTO.setNumberPhone(userEntity.getNumberPhone());
         userDTO.setJob(userEntity.getJob());
+        userDTO.setTechnologies(userEntity.getTechnologies());
+        userDTO.setBiography(userEntity.getBiography());
         userDTO.setDayCount(userEntity.getDayCount());
+        userDTO.setUserImage(userEntity.getUserImage());
         return userDTO;
     }
 }

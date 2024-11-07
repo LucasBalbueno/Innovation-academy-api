@@ -17,8 +17,7 @@ public class UserEntity {
     @Column (name = "user_id",nullable = false)
     private Integer userId;
 
-
-   @Column(name = "username", nullable = false,unique = true)
+    @Column(name = "username", nullable = false,unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -47,7 +46,6 @@ public class UserEntity {
 
     @Column(name = "day_count", nullable = false)
     private String dayCount;
-
 
     @Column(name = "user_image")
     private String userImage;
