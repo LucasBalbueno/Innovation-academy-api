@@ -1,6 +1,6 @@
 package Innovation.Academy.Innovation_academy_api.dto;
 
-import Innovation.Academy.Innovation_academy_api.enums.EventLevelEnum;
+import Innovation.Academy.Innovation_academy_api.enums.LevelEnum;
 import lombok.Data;
 
 @Data
@@ -11,5 +11,5 @@ public class EventDTO {
     private String eventDescription;
     private String eventImage;
     private String eventURL;
-    private EventLevelEnum eventLevel;
+    private LevelEnum eventLevel;
 }

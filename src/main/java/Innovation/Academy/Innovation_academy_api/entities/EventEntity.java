@@ -1,6 +1,6 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
-import Innovation.Academy.Innovation_academy_api.enums.EventLevelEnum;
+import Innovation.Academy.Innovation_academy_api.enums.LevelEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,5 +35,5 @@ public class EventEntity {
     private String eventURL;
 
     @Column(name = "event_level", nullable = false)
-    private EventLevelEnum eventLevel;
+    private LevelEnum eventLevel;
 }
