@@ -21,5 +21,6 @@ public class FeedbackDTO {
     @Schema(description = "descrição do feedback", example = "Plataforma muito boa, la tem ótimos cursos")
     private String feedbackDescription;
 
-    private UserEntity userId;
+    private UserEntity user;
+
 }

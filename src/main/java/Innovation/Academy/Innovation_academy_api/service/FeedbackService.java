@@ -34,9 +34,9 @@ public class FeedbackService {
 
     public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO){
         FeedbackEntity feedbackEntity = new FeedbackEntity();
-        feedbackEntity.setFeedbackStars(feedbackEntity.getFeedbackStars());
-        feedbackEntity.setFeedbackDescription(feedbackEntity.getFeedbackDescription());
-        feedbackEntity.setUserId(feedbackEntity.getUserId());
+        feedbackEntity.setFeedbackStars(feedbackDTO.getFeedbackStars());
+        feedbackEntity.setFeedbackDescription(feedbackDTO.getFeedbackDescription());
+        feedbackEntity.setUser(feedbackDTO.getUser());
         feedbackRepository.save(feedbackEntity);
 
         return convertToDTO(feedbackEntity);
@@ -45,10 +45,10 @@ public class FeedbackService {
     public FeedbackDTO updateFeedback(Integer id,FeedbackDTO feedbackDTO){
         Optional<FeedbackEntity> feedbackEntityOptional = feedbackRepository.findById(id);
         if(feedbackEntityOptional.isPresent()){
-            FeedbackEntity feedbackEntity = new FeedbackEntity();
-            feedbackEntity.setFeedbackStars(feedbackEntity.getFeedbackStars());
-            feedbackEntity.setFeedbackDescription(feedbackEntity.getFeedbackDescription());
-            feedbackEntity.setUserId(feedbackEntity.getUserId());
+            FeedbackEntity feedbackEntity = feedbackEntityOptional.get();
+            feedbackEntity.setFeedbackStars(feedbackDTO.getFeedbackStars());
+            feedbackEntity.setFeedbackDescription(feedbackDTO.getFeedbackDescription());
+            feedbackEntity.setUser(feedbackDTO.getUser());
             feedbackRepository.save(feedbackEntity);
             return convertToDTO(feedbackEntity);
         }
@@ -67,7 +67,7 @@ public class FeedbackService {
         feedbackDTO.setFeedbackId(feedbackEntity.getFeedbackId());
         feedbackDTO.setFeedbackStars(feedbackEntity.getFeedbackStars());
         feedbackDTO.setFeedbackDescription(feedbackEntity.getFeedbackDescription());
-        feedbackDTO.setUserId(feedbackEntity.getUserId());
+        feedbackDTO.setUser(feedbackEntity.getUser());
         return feedbackDTO;
     }
 

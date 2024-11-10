@@ -1,5 +1,6 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
+import Innovation.Academy.Innovation_academy_api.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,11 +24,11 @@ public class FeedbackEntity {
     @Column(name = "feedback_description")
     private String feedbackDescription;
 
-//    private String event;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private UserEntity userId;
+    private UserEntity user;
+
 
 }

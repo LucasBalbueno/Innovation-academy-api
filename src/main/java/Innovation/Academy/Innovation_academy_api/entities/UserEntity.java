@@ -1,9 +1,12 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -51,6 +54,11 @@ public class UserEntity {
 
     @Column(name = "user_image")
     private String userImage;
+
+   @JsonIgnore
+   @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+   private FeedbackEntity feedback;
+
 
 
 //    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
