@@ -3,10 +3,6 @@ package Innovation.Academy.Innovation_academy_api.dto;
 import Innovation.Academy.Innovation_academy_api.entities.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -22,5 +18,4 @@ public class FeedbackDTO {
     private String feedbackDescription;
 
     private UserEntity user;
-
 }

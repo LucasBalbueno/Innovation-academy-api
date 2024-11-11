@@ -1,6 +1,7 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +21,7 @@ public class UserEntity {
     @Column (name = "user_id",nullable = false)
     private Integer userId;
 
-
-   @Column(name = "username", nullable = false,unique = true)
+    @Column(name = "username", nullable = false,unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -51,7 +51,6 @@ public class UserEntity {
     @Column(name = "day_count", nullable = false)
     private String dayCount;
 
-
     @Column(name = "user_image")
     private String userImage;
 
@@ -59,9 +58,10 @@ public class UserEntity {
    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
    private FeedbackEntity feedback;
 
-
-
-//    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
-//        return passwordEncoder.matches(loginRequest.password(), this.password);
-//    }
+   @JsonIgnore
+   @ManyToMany
+   @JoinTable(name = "Users_Courses",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "cargo_id"))
+   private Set<CourseEntity> courses;
 }

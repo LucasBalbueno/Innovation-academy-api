@@ -24,11 +24,9 @@ public class FeedbackEntity {
     @Column(name = "feedback_description")
     private String feedbackDescription;
 
-
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity user;
-
 
 }

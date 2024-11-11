@@ -1,0 +1,19 @@
+#version: '3.1'
+#
+#services:
+#  db:
+#    image: mysql:8.4.3
+#    volumes:
+#      - dbbase:/var/lib/mysql
+#    ports:
+#      - "3307:3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root123
+#      MYSQL_DATABASE: innovationacademyapi
+#
+#  phpmyadmin:
+#    image: phpmyadmin
+#    ports:
+#      - 8000:80
+#volumes:
+#  dbbase:
