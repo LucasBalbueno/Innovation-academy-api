@@ -23,11 +23,8 @@ public class UserEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name",nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name",nullable = false)
-    private String lastName;
+    @Column(name = "name",nullable = false)
+    private String name;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -35,7 +32,7 @@ public class UserEntity {
     @Column(name = "number_phone")
     private String numberPhone;
 
-    @Column(name = "job", nullable = false)
+    @Column(name = "job")
     private String job;
 
     @Column(name = "technologies")
@@ -44,7 +41,7 @@ public class UserEntity {
     @Column(name = "biography")
     private String biography;
 
-    @Column(name = "day_count", nullable = false)
+    @Column(name = "day_count")
     private String dayCount;
 
     @Column(name = "user_image")
