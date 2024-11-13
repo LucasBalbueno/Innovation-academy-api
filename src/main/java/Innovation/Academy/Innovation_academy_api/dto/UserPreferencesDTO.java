@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class UserPreferencesDTO {
-    private Integer preferenceId;
+    private Integer userId;
     private ThemeEnum theme;
     private TextSizeEnum textSize;
     private NotificationEnum notification;

@@ -64,4 +64,8 @@ public class UserEntity {
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "cargo_id"))
    private Set<CourseEntity> courses;
+
+   @OneToOne(mappedBy = "user")
+   @PrimaryKeyJoinColumn
+   private UserPreferencesEntity userPreferences;
 }
