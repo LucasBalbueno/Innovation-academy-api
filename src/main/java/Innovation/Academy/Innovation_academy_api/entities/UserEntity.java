@@ -1,7 +1,6 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -54,9 +53,9 @@ public class UserEntity {
     @Column(name = "user_image")
     private String userImage;
 
-   @JsonIgnore
-   @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-   private FeedbackEntity feedback;
+    @OneToOne(mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private FeedbackEntity feedback;
 
    @JsonIgnore
    @ManyToMany
