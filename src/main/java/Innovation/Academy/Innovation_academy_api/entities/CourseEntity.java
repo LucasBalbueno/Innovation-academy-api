@@ -3,11 +3,14 @@ package Innovation.Academy.Innovation_academy_api.entities;
 import Innovation.Academy.Innovation_academy_api.enums.CourseTypeEnum;
 import Innovation.Academy.Innovation_academy_api.enums.LevelEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,7 +38,11 @@ public class CourseEntity {
     private CourseTypeEnum courseType;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinTable(name = "Courses_Users",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private Set<UserEntity> users;
 
     @JsonIgnore

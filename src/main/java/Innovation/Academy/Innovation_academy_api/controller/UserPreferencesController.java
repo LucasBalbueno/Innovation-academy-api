@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users-preferences")
+@RequestMapping("/api/preferences")
 public class UserPreferencesController {
 
     @Autowired
@@ -20,25 +20,25 @@ public class UserPreferencesController {
         return userPreferencesService.getAllUserPreferences();
     }
 
-    @GetMapping("/{id}")
-    public UserPreferencesDTO getUserPreferencesById(@PathVariable Integer id) {
-        return userPreferencesService.getUserPreferencesById(id);
+    @GetMapping("/user/{userid}")
+    public UserPreferencesDTO getUserPreferencesById(@PathVariable Integer userid) {
+        return userPreferencesService.getUserPreferencesById(userid);
     }
 
-    @PostMapping
-    public UserPreferencesDTO createUserPreferences(@RequestBody UserPreferencesDTO userPreferencesDTO) {
-        return userPreferencesService.createUserPreferences(userPreferencesDTO);
+    @PostMapping("/user/{userId}")
+    public UserPreferencesDTO createUserPreferences(@PathVariable Integer userId, @RequestBody UserPreferencesDTO userPreferencesDTO) {
+        return userPreferencesService.createUserPreferences(userId, userPreferencesDTO);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserPreferencesDTO> updateUserPreferences(@PathVariable Integer id, @RequestBody UserPreferencesDTO userPreferencesDTO) {
-        UserPreferencesDTO updatedUser = userPreferencesService.updateUserPreferences(id, userPreferencesDTO);
+    @PutMapping("/user/{userid}")
+    public ResponseEntity<UserPreferencesDTO> updateUserPreferences(@PathVariable Integer userid, @RequestBody UserPreferencesDTO userPreferencesDTO) {
+        UserPreferencesDTO updatedUser = userPreferencesService.updateUserPreferences(userid, userPreferencesDTO);
         return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserPreferences(@PathVariable Integer id) {
-        userPreferencesService.deleteUserPreferences(id);
+    @DeleteMapping("/user/{userid}")
+    public ResponseEntity<Void> deleteUserPreferences(@PathVariable Integer userid) {
+        userPreferencesService.deleteUserPreferences(userid);
         return ResponseEntity.noContent().build();
     }
 }

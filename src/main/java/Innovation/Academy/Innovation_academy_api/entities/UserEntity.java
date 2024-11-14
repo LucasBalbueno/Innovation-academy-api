@@ -1,12 +1,13 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,14 +55,15 @@ public class UserEntity {
     @Column(name = "user_image")
     private String userImage;
 
-   @JsonIgnore
-   @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-   private FeedbackEntity feedback;
+    @OneToOne(mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private FeedbackEntity feedback;
+
+   @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+   private Set<CourseEntity> courses;
 
    @JsonIgnore
-   @ManyToMany
-   @JoinTable(name = "Users_Courses",
-                joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "cargo_id"))
-   private Set<CourseEntity> courses;
+   @OneToOne(mappedBy = "user")
+   @PrimaryKeyJoinColumn
+   private UserPreferencesEntity userPreferences;
 }

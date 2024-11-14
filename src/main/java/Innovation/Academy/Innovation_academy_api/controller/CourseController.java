@@ -1,6 +1,7 @@
 package Innovation.Academy.Innovation_academy_api.controller;
 
 import Innovation.Academy.Innovation_academy_api.dto.CourseDTO;
+import Innovation.Academy.Innovation_academy_api.dto.CourseDTOCreate;
 import Innovation.Academy.Innovation_academy_api.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +27,13 @@ public class CourseController {
     }
 
     @PostMapping
-    public CourseDTO createCourse(@RequestBody CourseDTO courseDTO) {
+    public CourseDTOCreate createCourse(@RequestBody CourseDTOCreate courseDTO) {
         return courseService.createCourse(courseDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseDTO> updateCourse(@PathVariable Integer id, @RequestBody CourseDTO courseDTO) {
-        CourseDTO updatedCourse = courseService.updateCourse(id, courseDTO);
+    public ResponseEntity<CourseDTOCreate> updateCourse(@PathVariable Integer id, @RequestBody CourseDTOCreate courseDTOCreate) {
+        CourseDTOCreate updatedCourse = courseService.updateCourse(id, courseDTOCreate);
         return updatedCourse != null ? ResponseEntity.ok(updatedCourse) : ResponseEntity.notFound().build();
     }
 
@@ -40,5 +41,10 @@ public class CourseController {
     public ResponseEntity<Void> deleteCourse(@PathVariable Integer id) {
         courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/registerUser/{idUser}/course/{idCourse}")
+    public CourseDTO registerUserInCourse(@PathVariable Integer idUser,@PathVariable Integer idCourse){
+        return courseService.registerUserInCourse(idUser,idCourse);
     }
 }
