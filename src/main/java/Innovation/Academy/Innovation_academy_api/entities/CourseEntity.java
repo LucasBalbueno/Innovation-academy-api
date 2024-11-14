@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,9 +34,8 @@ public class CourseEntity {
     @Column(name = "course_type")
     private CourseTypeEnum courseType;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "courses")
-    private Set<UserEntity> users;
+    private List<UserEntity> users;
 
     @JsonIgnore
     @ManyToOne

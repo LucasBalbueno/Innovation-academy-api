@@ -2,6 +2,8 @@ package Innovation.Academy.Innovation_academy_api.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class UserDTO {
     private Integer userId;
@@ -15,4 +17,6 @@ public class UserDTO {
     private String biography;
     private String dayCount;
     private String userImage;
+
+    private List<CourseDTO> courses;
 }
