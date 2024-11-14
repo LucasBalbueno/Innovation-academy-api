@@ -16,9 +16,13 @@ import lombok.NoArgsConstructor;
 public class UserPreferencesEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "preference_id", nullable = false)
-    private Integer preferenceId;
+    @Column (name = "user_id")
+    private Integer userId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "theme", nullable = false)

@@ -1,10 +1,14 @@
 package Innovation.Academy.Innovation_academy_api.service;
 
 import Innovation.Academy.Innovation_academy_api.dto.UserPreferencesDTO;
+import Innovation.Academy.Innovation_academy_api.entities.UserEntity;
 import Innovation.Academy.Innovation_academy_api.entities.UserPreferencesEntity;
 import Innovation.Academy.Innovation_academy_api.repository.UserPreferencesRepository;
+import Innovation.Academy.Innovation_academy_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +20,9 @@ public class UserPreferencesService {
     @Autowired
     private UserPreferencesRepository userPreferencesRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<UserPreferencesDTO> getAllUserPreferences() {
         return userPreferencesRepository
                 .findAll()
@@ -24,24 +31,31 @@ public class UserPreferencesService {
                 .collect(Collectors.toList());
     }
 
-    public UserPreferencesDTO getUserPreferencesById(Integer id) {
-        Optional<UserPreferencesEntity> userPreferencesOptional = userPreferencesRepository.findById(id);
+    public UserPreferencesDTO getUserPreferencesById(Integer userId) {
+        Optional<UserPreferencesEntity> userPreferencesOptional = userPreferencesRepository.findById(userId);
         return userPreferencesOptional.map(this::convertToDTO).orElse(null);
     }
 
-    public UserPreferencesDTO createUserPreferences(UserPreferencesDTO userPreferencesDTO) {
-        UserPreferencesEntity userPreferencesEntity = new UserPreferencesEntity();
-        userPreferencesEntity.setTheme(userPreferencesDTO.getTheme());
-        userPreferencesEntity.setTextSize(userPreferencesDTO.getTextSize());
-        userPreferencesEntity.setNotification(userPreferencesDTO.getNotification());
+    public UserPreferencesDTO createUserPreferences(Integer userId, UserPreferencesDTO userPreferencesDTO) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
 
-        userPreferencesRepository.save(userPreferencesEntity);
+        if (userEntityOptional.isPresent()) {
+            UserPreferencesEntity userPreferencesEntity = new UserPreferencesEntity();
+            userPreferencesEntity.setUser(userEntityOptional.get());
+            userPreferencesEntity.setTheme(userPreferencesDTO.getTheme());
+            userPreferencesEntity.setTextSize(userPreferencesDTO.getTextSize());
+            userPreferencesEntity.setNotification(userPreferencesDTO.getNotification());
 
-        return convertToDTO(userPreferencesEntity);
+            userPreferencesRepository.save(userPreferencesEntity);
+
+            return convertToDTO(userPreferencesEntity);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
     }
 
-    public UserPreferencesDTO updateUserPreferences(Integer id, UserPreferencesDTO userPreferencesDTO) {
-        Optional<UserPreferencesEntity> userPreferencesOptional = userPreferencesRepository.findById(id);
+    public UserPreferencesDTO updateUserPreferences(Integer userId, UserPreferencesDTO userPreferencesDTO) {
+        Optional<UserPreferencesEntity> userPreferencesOptional = userPreferencesRepository.findById(userId);
 
         if(userPreferencesOptional.isPresent()){
             UserPreferencesEntity userPreferencesEntity = userPreferencesOptional.get();
@@ -56,13 +70,13 @@ public class UserPreferencesService {
         return null;
     }
 
-    public void deleteUserPreferences(Integer id) {
-        userPreferencesRepository.deleteById(id);
+    public void deleteUserPreferences(Integer userId) {
+        userPreferencesRepository.deleteById(userId);
     }
 
     private UserPreferencesDTO convertToDTO(UserPreferencesEntity userPreferencesEntity) {
         UserPreferencesDTO userPreferencesDTO = new UserPreferencesDTO();
-        userPreferencesDTO.setPreferenceId(userPreferencesEntity.getPreferenceId());
+        userPreferencesDTO.setUserId(userPreferencesEntity.getUser().getUserId());
         userPreferencesDTO.setTheme(userPreferencesEntity.getTheme());
         userPreferencesDTO.setTextSize(userPreferencesEntity.getTextSize());
         userPreferencesDTO.setNotification(userPreferencesEntity.getNotification());
