@@ -4,6 +4,7 @@ import Innovation.Academy.Innovation_academy_api.dto.UserDTO;
 import Innovation.Academy.Innovation_academy_api.entities.UserEntity;
 import Innovation.Academy.Innovation_academy_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class UserService {
     public UserDTO createUser(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userDTO.getUsername());
-        userEntity.setPassword(userDTO.getPassword());
+        userEntity.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
         userEntity.setName(userDTO.getName());
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setNumberPhone(userDTO.getNumberPhone());
