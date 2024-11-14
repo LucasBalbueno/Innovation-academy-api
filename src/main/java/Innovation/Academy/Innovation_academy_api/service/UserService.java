@@ -33,8 +33,7 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userDTO.getUsername());
         userEntity.setPassword(userDTO.getPassword());
-        userEntity.setFirstName(userDTO.getFirstName());
-        userEntity.setLastName(userDTO.getLastName());
+        userEntity.setName(userDTO.getName());
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setNumberPhone(userDTO.getNumberPhone());
         userEntity.setJob(userDTO.getJob());
@@ -54,8 +53,7 @@ public class UserService {
             UserEntity userEntity = userOptional.get();
             userEntity.setUsername(userDTO.getUsername());
             userEntity.setPassword(userDTO.getPassword());
-            userEntity.setFirstName(userDTO.getFirstName());
-            userEntity.setLastName(userDTO.getLastName());
+            userEntity.setName(userDTO.getName());
             userEntity.setEmail(userDTO.getEmail());
             userEntity.setNumberPhone(userDTO.getNumberPhone());
             userEntity.setJob(userDTO.getJob());
@@ -80,8 +78,7 @@ public class UserService {
         userDTO.setUserId(userEntity.getUserId());
         userDTO.setUsername(userEntity.getUsername());
         userDTO.setPassword(userEntity.getPassword());
-        userDTO.setFirstName(userEntity.getFirstName());
-        userDTO.setLastName(userEntity.getLastName());
+        userEntity.setName(userDTO.getName());
         userDTO.setEmail(userEntity.getEmail());
         userDTO.setNumberPhone(userEntity.getNumberPhone());
         userDTO.setJob(userEntity.getJob());
