@@ -17,6 +17,5 @@ public class UserDTO {
     private String biography;
     private String dayCount;
     private String userImage;
-
     private List<CourseDTO> courses;
 }

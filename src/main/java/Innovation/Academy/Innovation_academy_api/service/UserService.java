@@ -7,8 +7,6 @@ import Innovation.Academy.Innovation_academy_api.entities.UserEntity;
 import Innovation.Academy.Innovation_academy_api.repository.CourseRepository;
 import Innovation.Academy.Innovation_academy_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -84,54 +82,6 @@ public class UserService {
 
     public void deleteUser(Integer id){
         userRepository.deleteById(id);
-    }
-
-    public ResponseEntity<List<CourseDTO>> getCoursesByUser(Integer userId) {
-        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
-
-        if (userEntityOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        List<CourseDTO> courseDTOs =userEntityOptional.get().getCourses().stream()
-                .map(this::convertToCourseDTO)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(courseDTOs);
-    }
-
-    public ResponseEntity<UserDTO> enrollUserInCourse(Integer userId, Integer courseId) {
-        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
-        Optional<CourseEntity> courseEntityOptional = courseRepository.findById(courseId);
-
-        if (userEntityOptional.isEmpty() && courseEntityOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        UserEntity userEntity = userEntityOptional.get();
-        CourseEntity courseEntity = courseEntityOptional.get();
-
-        userEntity.getCourses().add(courseEntity);
-        userRepository.save(userEntity);
-
-        return ResponseEntity.ok(convertToDTO(userEntity));
-    }
-
-    public ResponseEntity<UserDTO> unenrollUserFromCourse(Integer userId, Integer courseId) {
-        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
-        Optional<CourseEntity> courseEntityOptional = courseRepository.findById(courseId);
-
-        if (userEntityOptional.isEmpty() && courseEntityOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        UserEntity userEntity = userEntityOptional.get();
-        CourseEntity courseEntity = courseEntityOptional.get();
-
-        userEntity.getCourses().remove(courseEntity);
-        userRepository.save(userEntity);
-
-        return ResponseEntity.ok(convertToDTO(userEntity));
     }
 
     private UserDTO convertToDTO(UserEntity userEntity){
