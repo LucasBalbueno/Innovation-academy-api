@@ -2,13 +2,12 @@ package Innovation.Academy.Innovation_academy_api.entities;
 
 import Innovation.Academy.Innovation_academy_api.enums.CourseTypeEnum;
 import Innovation.Academy.Innovation_academy_api.enums.LevelEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,12 +33,13 @@ public class CourseEntity {
     @Column(name = "course_type")
     private CourseTypeEnum courseType;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "courses")
-    private Set<UserEntity> users;
+    private List<UserEntity> users;
 
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
+    @JoinColumn(name = "teacher_id", insertable = false, updatable = false)
     private TeacherEntity teacher;
+
+    @Column(name = "teacher_id", nullable = false)
+    private Integer teacherId;
 }
