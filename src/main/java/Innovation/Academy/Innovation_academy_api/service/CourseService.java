@@ -35,6 +35,7 @@ public class CourseService {
         courseEntity.setCourseLevel(courseDTO.getCourseLevel());
         courseEntity.setCourseDescription(courseDTO.getCourseDescription());
         courseEntity.setCourseType(courseDTO.getCourseType());
+        courseEntity.setTeacherId(courseDTO.getTeacherId());
 
         courseRepository.save(courseEntity);
 
@@ -50,6 +51,7 @@ public class CourseService {
             courseEntity.setCourseLevel(courseDTO.getCourseLevel());
             courseEntity.setCourseDescription(courseDTO.getCourseDescription());
             courseEntity.setCourseType(courseDTO.getCourseType());
+            courseEntity.setTeacherId(courseDTO.getTeacherId());
 
             courseRepository.save(courseEntity);
 
@@ -70,6 +72,7 @@ public class CourseService {
         courseDTO.setCourseLevel(courseEntity.getCourseLevel());
         courseDTO.setCourseDescription(courseEntity.getCourseDescription());
         courseDTO.setCourseType(courseEntity.getCourseType());
+        courseDTO.setTeacherId(courseEntity.getTeacherId());
 
         return courseDTO;
     }

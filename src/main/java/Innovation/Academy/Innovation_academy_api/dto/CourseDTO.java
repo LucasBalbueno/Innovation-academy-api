@@ -11,4 +11,5 @@ public class CourseDTO {
     private LevelEnum courseLevel;
     private String courseDescription;
     private CourseTypeEnum courseType;
+    private Integer teacherId;
 }

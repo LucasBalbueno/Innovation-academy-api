@@ -1,12 +1,11 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,8 +28,6 @@ public class TeacherEntity {
     @Column(name = "teacher_image")
     private String teacherImage;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-    private Set<CourseEntity> courses;
-
+    @OneToMany(mappedBy = "teacher")
+    private List<CourseEntity> courses;
 }
