@@ -42,8 +42,4 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/registerUser/{idUser}/course/{idCourse}")
-    public CourseDTO registerUserInCourse(@PathVariable Integer idUser,@PathVariable Integer idCourse){
-        return courseService.registerUserInCourse(idUser,idCourse);
-    }
-}
+  }
