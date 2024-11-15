@@ -22,16 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<UserEntity> userOptional = userRepository.findByEmail(email);
         UserEntity userEntity = userOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com email: " + email));
-
-        // Verifique se a senha está presente (pode ser null se o usuário for criado de outra forma)
         if (userEntity.getPassword() == null) {
             throw new BadCredentialsException("User has no password");
         }
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(email) // Ou userEntity.getEmail(), se preferir
-                .password(userEntity.getPassword()) // Senha criptografada do banco
-                .roles("USER") // Ou authorities("USER") se estiver usando Spring Security anterior a 5.7
+                .withUsername(email)
+                .password(userEntity.getPassword())
+                .roles("USER")
                 .build();
     }
 
