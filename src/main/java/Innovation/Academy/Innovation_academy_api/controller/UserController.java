@@ -29,6 +29,12 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/by-email")  // Nova rota
+    public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
+        UserDTO userDTO = userService.getUserByEmail(email);
+        return userDTO != null ? ResponseEntity.ok(userDTO) : ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public UserDTO createUser(@RequestBody UserDTO userDTO){
         return userService.createUser(userDTO);

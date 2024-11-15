@@ -37,6 +37,15 @@ public class UserService {
         return userEntityOptional.map(this::convertToDTO).orElse(null);
     }
 
+    public UserDTO getUserByEmail(String email) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByEmail(email);
+        if (userEntityOptional.isPresent()) {
+            UserEntity userEntity = userEntityOptional.get();
+            return convertToDTO(userEntity);
+        }
+        return null;
+    }
+
     public UserDTO createUser(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userDTO.getUsername());
@@ -90,7 +99,7 @@ public class UserService {
         userDTO.setUserId(userEntity.getUserId());
         userDTO.setUsername(userEntity.getUsername());
         userDTO.setPassword(userEntity.getPassword());
-        userEntity.setName(userDTO.getName());
+        userDTO.setName(userEntity.getName());
         userDTO.setEmail(userEntity.getEmail());
         userDTO.setNumberPhone(userEntity.getNumberPhone());
         userDTO.setJob(userEntity.getJob());
