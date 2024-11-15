@@ -1,14 +1,11 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -28,11 +25,8 @@ public class UserEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name",nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name",nullable = false)
-    private String lastName;
+    @Column(name = "name",nullable = false)
+    private String name;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -40,7 +34,7 @@ public class UserEntity {
     @Column(name = "number_phone")
     private String numberPhone;
 
-    @Column(name = "job", nullable = false)
+    @Column(name = "job")
     private String job;
 
     @Column(name = "technologies")
@@ -49,7 +43,7 @@ public class UserEntity {
     @Column(name = "biography")
     private String biography;
 
-    @Column(name = "day_count", nullable = false)
+    @Column(name = "day_count")
     private String dayCount;
 
     @Column(name = "user_image")
@@ -59,11 +53,15 @@ public class UserEntity {
     @PrimaryKeyJoinColumn
     private FeedbackEntity feedback;
 
-   @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
-   private Set<CourseEntity> courses;
+    @ManyToMany
+    @JoinTable(
+            name = "registrations",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<CourseEntity> courses;
 
-   @JsonIgnore
-   @OneToOne(mappedBy = "user")
-   @PrimaryKeyJoinColumn
-   private UserPreferencesEntity userPreferences;
+    @OneToOne(mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private UserPreferencesEntity userPreferences;
 }

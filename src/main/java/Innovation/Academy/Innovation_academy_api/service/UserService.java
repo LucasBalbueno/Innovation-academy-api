@@ -1,11 +1,15 @@
 package Innovation.Academy.Innovation_academy_api.service;
 
+import Innovation.Academy.Innovation_academy_api.dto.CourseDTO;
 import Innovation.Academy.Innovation_academy_api.dto.UserDTO;
+import Innovation.Academy.Innovation_academy_api.entities.CourseEntity;
 import Innovation.Academy.Innovation_academy_api.entities.UserEntity;
+import Innovation.Academy.Innovation_academy_api.repository.CourseRepository;
 import Innovation.Academy.Innovation_academy_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +19,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     public List<UserDTO> getAllUsers(){
         return userRepository
@@ -33,8 +40,7 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userDTO.getUsername());
         userEntity.setPassword(userDTO.getPassword());
-        userEntity.setFirstName(userDTO.getFirstName());
-        userEntity.setLastName(userDTO.getLastName());
+        userEntity.setName(userDTO.getName());
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setNumberPhone(userDTO.getNumberPhone());
         userEntity.setJob(userDTO.getJob());
@@ -42,6 +48,10 @@ public class UserService {
         userEntity.setBiography(userDTO.getBiography());
         userEntity.setDayCount(userDTO.getDayCount());
         userEntity.setUserImage(userDTO.getUserImage());
+
+        if (userEntity.getCourses() == null) {
+            userEntity.setCourses(new ArrayList<>());
+        }
 
         userRepository.save(userEntity);
 
@@ -54,8 +64,7 @@ public class UserService {
             UserEntity userEntity = userOptional.get();
             userEntity.setUsername(userDTO.getUsername());
             userEntity.setPassword(userDTO.getPassword());
-            userEntity.setFirstName(userDTO.getFirstName());
-            userEntity.setLastName(userDTO.getLastName());
+            userEntity.setName(userDTO.getName());
             userEntity.setEmail(userDTO.getEmail());
             userEntity.setNumberPhone(userDTO.getNumberPhone());
             userEntity.setJob(userDTO.getJob());
@@ -80,8 +89,7 @@ public class UserService {
         userDTO.setUserId(userEntity.getUserId());
         userDTO.setUsername(userEntity.getUsername());
         userDTO.setPassword(userEntity.getPassword());
-        userDTO.setFirstName(userEntity.getFirstName());
-        userDTO.setLastName(userEntity.getLastName());
+        userEntity.setName(userDTO.getName());
         userDTO.setEmail(userEntity.getEmail());
         userDTO.setNumberPhone(userEntity.getNumberPhone());
         userDTO.setJob(userEntity.getJob());
@@ -89,6 +97,22 @@ public class UserService {
         userDTO.setBiography(userEntity.getBiography());
         userDTO.setDayCount(userEntity.getDayCount());
         userDTO.setUserImage(userEntity.getUserImage());
+
+        userDTO.setCourses(userEntity.getCourses().stream()
+                .map(this::convertToCourseDTO)
+                .collect(Collectors.toList()));
+
         return userDTO;
+    }
+
+    private CourseDTO convertToCourseDTO(CourseEntity courseEntity) {
+        CourseDTO courseDTO = new CourseDTO();
+        courseDTO.setCourseId(courseEntity.getCourseId());
+        courseDTO.setCourseName(courseEntity.getCourseName());
+        courseDTO.setCourseLevel(courseEntity.getCourseLevel());
+        courseDTO.setCourseDescription(courseEntity.getCourseDescription());
+        courseDTO.setCourseType(courseEntity.getCourseType());
+
+        return courseDTO;
     }
 }
