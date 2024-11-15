@@ -68,20 +68,42 @@ public class UserService {
         return convertToDTO(userEntity);
     }
 
-    public UserDTO updateUser(Integer id,UserDTO userDTO){
+    public UserDTO updateUser(Integer id, UserDTO userDTO) {
         Optional<UserEntity> userOptional = userRepository.findById(id);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             UserEntity userEntity = userOptional.get();
-            userEntity.setUsername(userDTO.getUsername());
-            userEntity.setPassword(userDTO.getPassword());
-            userEntity.setName(userDTO.getName());
-            userEntity.setEmail(userDTO.getEmail());
-            userEntity.setNumberPhone(userDTO.getNumberPhone());
-            userEntity.setJob(userDTO.getJob());
-            userEntity.setTechnologies(userDTO.getTechnologies());
-            userEntity.setBiography(userDTO.getBiography());
-            userEntity.setDayCount(userDTO.getDayCount());
-            userEntity.setUserImage(userDTO.getUserImage());
+
+            if (userDTO.getPassword() != null) {
+                userEntity.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
+            }
+
+            if (userDTO.getUsername() != null) {
+                userEntity.setUsername(userDTO.getUsername());
+            }
+            if (userDTO.getName() != null) {
+                userEntity.setName(userDTO.getName());
+            }
+            if (userDTO.getEmail() != null) {
+                userEntity.setEmail(userDTO.getEmail());
+            }
+            if (userDTO.getNumberPhone() != null) {
+                userEntity.setNumberPhone(userDTO.getNumberPhone());
+            }
+            if (userDTO.getJob() != null) {
+                userEntity.setJob(userDTO.getJob());
+            }
+            if (userDTO.getTechnologies() != null) {
+                userEntity.setTechnologies(userDTO.getTechnologies());
+            }
+            if (userDTO.getBiography() != null) {
+                userEntity.setBiography(userDTO.getBiography());
+            }
+            if (userDTO.getDayCount() != null) {
+                userEntity.setDayCount(userDTO.getDayCount());
+            }
+            if (userDTO.getUserImage() != null) {
+                userEntity.setUserImage(userDTO.getUserImage());
+            }
 
             userRepository.save(userEntity);
 
@@ -89,6 +111,7 @@ public class UserService {
         }
         return null;
     }
+
 
     public void deleteUser(Integer id){
         userRepository.deleteById(id);

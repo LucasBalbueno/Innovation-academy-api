@@ -40,7 +40,7 @@ public class UserController {
         return userService.createUser(userDTO);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userDTO){
         UserDTO updateUser = userService.updateUser(id, userDTO);
         return updateUser != null ? ResponseEntity.ok(updateUser) : ResponseEntity.notFound().build();
