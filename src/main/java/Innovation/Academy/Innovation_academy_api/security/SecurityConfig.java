@@ -62,7 +62,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/send-email").permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/api/courses/**").permitAll()
+                        .requestMatchers("/api/events/**").permitAll()
+                        .requestMatchers("/api/teachers/**").permitAll()
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
