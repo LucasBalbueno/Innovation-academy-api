@@ -20,64 +20,35 @@ public class FeedbackService {
     @Autowired
     private FeedbackRepository feedbackRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<FeedbackDTO> getAllFeedbacks(){
-        return feedbackRepository
-                .findAll()
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    public FeedbackDTO getFeedbackById(Integer id){
-        Optional<FeedbackEntity> feedbackEntityOptional = feedbackRepository.findById(id);
-        return feedbackEntityOptional.map(this::convertToDTO).orElse(null);
-    }
-
-    public FeedbackDTO createFeedback(Integer userId, FeedbackDTO feedbackDTO){
-        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
-
-        if (userEntityOptional.isPresent()) {
-        FeedbackEntity feedbackEntity = new FeedbackEntity();
-        feedbackEntity.setUser(userEntityOptional.get());
-        feedbackEntity.setFeedbackStars(feedbackDTO.getFeedbackStars());
-        feedbackEntity.setFeedbackDescription(feedbackDTO.getFeedbackDescription());
-
-        feedbackRepository.save(feedbackEntity);
-
-        return convertToDTO(feedbackEntity);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+    public FeedbackEntity createFeedback(FeedbackEntity feedback) {
+        Optional<FeedbackEntity> existingFeedback = feedbackRepository.findByFeedbackUsername(feedback.getFeedbackUsername());
+        if (existingFeedback.isPresent()) {
+            throw new IllegalArgumentException("Usuário já enviou um feedback.");
         }
+        return feedbackRepository.save(feedback);
     }
 
-    public FeedbackDTO updateFeedback(Integer id,FeedbackDTO feedbackDTO){
-        Optional<FeedbackEntity> feedbackEntityOptional = feedbackRepository.findById(id);
+    public List<FeedbackEntity> getAllFeedbacks() {
+        return feedbackRepository.findAll();
+    }
 
-        if(feedbackEntityOptional.isPresent()){
-            FeedbackEntity feedbackEntity = feedbackEntityOptional.get();
-            feedbackEntity.setFeedbackStars(feedbackDTO.getFeedbackStars());
-            feedbackEntity.setFeedbackDescription(feedbackDTO.getFeedbackDescription());
+    public Optional<FeedbackEntity> getFeedbackById(Integer id) {
+        return feedbackRepository.findById(id);
+    }
 
-            feedbackRepository.save(feedbackEntity);
-            return convertToDTO(feedbackEntity);
+    public FeedbackEntity updateFeedback(Integer id, FeedbackEntity feedback) {
+        if (feedbackRepository.existsById(id)) {
+            feedback.setFeedback_id(id);
+            return feedbackRepository.save(feedback);
         }
-
         return null;
     }
 
-    public void deleteFeedback(Integer id){
-        feedbackRepository.deleteById(id);
-    }
-
-    private FeedbackDTO convertToDTO(FeedbackEntity feedbackEntity){
-        FeedbackDTO feedbackDTO = new FeedbackDTO();
-        feedbackDTO.setUserId(feedbackEntity.getUser().getUserId());
-        feedbackDTO.setFeedbackStars(feedbackEntity.getFeedbackStars());
-        feedbackDTO.setFeedbackDescription(feedbackEntity.getFeedbackDescription());
-
-        return feedbackDTO;
+    public boolean deleteFeedback(Integer id) {
+        if (feedbackRepository.existsById(id)) {
+            feedbackRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

@@ -13,13 +13,15 @@ import lombok.NoArgsConstructor;
 public class FeedbackEntity {
 
     @Id
-    @Column (name = "user_id")
-    private Integer userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "feedback_id",nullable = false)
+    private Integer feedback_id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column(name = "feedback_username")
+    private String feedbackUsername;
+
+    @Column(name = "feedback_name")
+    private String feedbackName;
 
     @Column(name = "feedback_stars",nullable = false)
     private Integer feedbackStars;

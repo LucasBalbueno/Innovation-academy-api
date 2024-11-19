@@ -49,10 +49,6 @@ public class UserEntity {
     @Column(name = "user_image")
     private String userImage;
 
-    @OneToOne(mappedBy = "user")
-    @PrimaryKeyJoinColumn
-    private FeedbackEntity feedback;
-
     @ManyToMany
     @JoinTable(
             name = "registrations",
