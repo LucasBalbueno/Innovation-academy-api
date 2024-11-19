@@ -22,8 +22,12 @@ public class FeedbackService {
 
     public FeedbackEntity createFeedback(FeedbackEntity feedback) {
         Optional<FeedbackEntity> existingFeedback = feedbackRepository.findByFeedbackUsername(feedback.getFeedbackUsername());
+
         if (existingFeedback.isPresent()) {
-            throw new IllegalArgumentException("Usuário já enviou um feedback.");
+            FeedbackEntity feedbackToUpdate = existingFeedback.get();
+            feedbackToUpdate.setFeedbackStars(feedback.getFeedbackStars());
+            feedbackToUpdate.setFeedbackDescription(feedback.getFeedbackDescription());
+            return feedbackRepository.save(feedbackToUpdate);
         }
         return feedbackRepository.save(feedback);
     }

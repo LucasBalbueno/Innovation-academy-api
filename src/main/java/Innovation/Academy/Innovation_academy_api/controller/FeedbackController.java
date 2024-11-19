@@ -17,12 +17,6 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
 
-//    @PostMapping
-//    public ResponseEntity<FeedbackEntity> createFeedback(@RequestBody FeedbackEntity feedback) {
-//        FeedbackEntity createdFeedback = feedbackService.createFeedback(feedback);
-//        return new ResponseEntity<>(createdFeedback, HttpStatus.CREATED);
-//    }
-
     @PostMapping
     public ResponseEntity<?> createFeedback(@RequestBody FeedbackEntity feedback) {
         try {
@@ -33,14 +27,12 @@ public class FeedbackController {
         }
     }
 
-    // Listar todos os feedbacks
     @GetMapping
     public ResponseEntity<List<FeedbackEntity>> getAllFeedbacks() {
         List<FeedbackEntity> feedbacks = feedbackService.getAllFeedbacks();
         return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
 
-    // Obter feedback por ID
     @GetMapping("/{id}")
     public ResponseEntity<FeedbackEntity> getFeedbackById(@PathVariable Integer id) {
         Optional<FeedbackEntity> feedback = feedbackService.getFeedbackById(id);
@@ -50,7 +42,6 @@ public class FeedbackController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Atualizar feedback
     @PutMapping("/{id}")
     public ResponseEntity<FeedbackEntity> updateFeedback(@PathVariable Integer id, @RequestBody FeedbackEntity feedback) {
         FeedbackEntity updatedFeedback = feedbackService.updateFeedback(id, feedback);
@@ -60,7 +51,6 @@ public class FeedbackController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Deletar feedback
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFeedback(@PathVariable Integer id) {
         if (feedbackService.deleteFeedback(id)) {
