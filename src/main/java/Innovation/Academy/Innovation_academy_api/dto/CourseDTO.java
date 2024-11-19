@@ -4,6 +4,10 @@ import Innovation.Academy.Innovation_academy_api.enums.CourseTypeEnum;
 import Innovation.Academy.Innovation_academy_api.enums.LevelEnum;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Data
 public class CourseDTO {
     private Integer courseId;
