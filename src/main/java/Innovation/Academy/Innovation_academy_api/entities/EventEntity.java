@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -22,8 +24,11 @@ public class EventEntity {
     private String eventName;
 
 //  MUDAR PARA TIPO DATA
-    @Column(name = "event_date", nullable = false)
-    private String eventDate;
+    @Column(name = "event_date_start", nullable = false)
+    private Date eventDateStart;
+
+    @Column(name = "event_date_end", nullable = false)
+    private Date eventDateEnd;
 
     @Column(name = "event_description", nullable = false)
     private String eventDescription;

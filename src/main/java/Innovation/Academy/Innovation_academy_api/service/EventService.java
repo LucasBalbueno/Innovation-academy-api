@@ -32,7 +32,8 @@ public class EventService {
     public EventDTO createEvent(EventDTO eventDTO) {
         EventEntity eventEntity = new EventEntity();
         eventEntity.setEventName(eventDTO.getEventName());
-        eventEntity.setEventDate(eventDTO.getEventDate());
+        eventEntity.setEventDateStart(eventDTO.getEventDateStart());
+        eventEntity.setEventDateEnd(eventDTO.getEventDateEnd());
         eventEntity.setEventDescription(eventDTO.getEventDescription());
         eventEntity.setEventImage(eventDTO.getEventImage());
         eventEntity.setEventURL(eventDTO.getEventURL());
@@ -49,7 +50,8 @@ public class EventService {
         if(eventEntityOptional.isPresent()) {
             EventEntity eventEntity = eventEntityOptional.get();
             eventEntity.setEventName(eventDTO.getEventName());
-            eventEntity.setEventDate(eventDTO.getEventDate());
+            eventEntity.setEventDateStart(eventDTO.getEventDateStart());
+            eventEntity.setEventDateEnd(eventDTO.getEventDateEnd());
             eventEntity.setEventDescription(eventDTO.getEventDescription());
             eventEntity.setEventImage(eventDTO.getEventImage());
             eventEntity.setEventURL(eventDTO.getEventURL());
@@ -71,7 +73,8 @@ public class EventService {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setEventId(eventEntity.getEventId());
         eventDTO.setEventName(eventEntity.getEventName());
-        eventDTO.setEventDate(eventEntity.getEventDate());
+        eventDTO.setEventDateStart(eventEntity.getEventDateStart());
+        eventDTO.setEventDateEnd(eventEntity.getEventDateEnd());
         eventDTO.setEventDescription(eventEntity.getEventDescription());
         eventDTO.setEventImage(eventEntity.getEventImage());
         eventDTO.setEventURL(eventEntity.getEventURL());
