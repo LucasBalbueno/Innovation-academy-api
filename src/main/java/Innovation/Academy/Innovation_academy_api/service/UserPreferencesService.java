@@ -70,6 +70,29 @@ public class UserPreferencesService {
         return null;
     }
 
+    public UserPreferencesDTO patchUserPreferences(Integer userid, UserPreferencesDTO userPreferencesDTO) {
+        Optional<UserPreferencesEntity> userPreferencesOptional = userPreferencesRepository.findById(userid);
+
+        if (userPreferencesOptional.isPresent()) {
+            UserPreferencesEntity userPreferencesEntity = userPreferencesOptional.get();
+
+            if (userPreferencesDTO.getTheme() != null) {
+                userPreferencesEntity.setTheme(userPreferencesDTO.getTheme());
+            }
+            if (userPreferencesDTO.getTextSize() != null) {
+                userPreferencesEntity.setTextSize(userPreferencesDTO.getTextSize());
+            }
+            if (userPreferencesDTO.getNotification() != null) {
+                userPreferencesEntity.setNotification(userPreferencesDTO.getNotification());
+            }
+
+            userPreferencesRepository.save(userPreferencesEntity);
+            return convertToDTO(userPreferencesEntity);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User preferences not found");
+        }
+    }
+
     public void deleteUserPreferences(Integer userId) {
         userPreferencesRepository.deleteById(userId);
     }
@@ -83,4 +106,5 @@ public class UserPreferencesService {
 
         return userPreferencesDTO;
     }
+
 }

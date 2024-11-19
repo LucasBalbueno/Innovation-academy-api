@@ -36,6 +36,12 @@ public class UserPreferencesController {
         return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
     }
 
+    @PatchMapping("/user/{userid}")
+    public ResponseEntity<UserPreferencesDTO> patchUserPreferences(@PathVariable Integer userid, @RequestBody UserPreferencesDTO userPreferencesDTO) {
+        UserPreferencesDTO updatedUser = userPreferencesService.patchUserPreferences(userid, userPreferencesDTO);
+        return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/user/{userid}")
     public ResponseEntity<Void> deleteUserPreferences(@PathVariable Integer userid) {
         userPreferencesService.deleteUserPreferences(userid);

@@ -60,4 +60,5 @@ public class UserEntity {
     @OneToOne(mappedBy = "user")
     @PrimaryKeyJoinColumn
     private UserPreferencesEntity userPreferences;
+
 }
