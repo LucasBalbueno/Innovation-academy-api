@@ -1,12 +1,17 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
 import Innovation.Academy.Innovation_academy_api.enums.LevelEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -41,4 +46,7 @@ public class EventEntity {
 
     @Column(name = "event_level", nullable = false)
     private LevelEnum eventLevel;
+
+    @ManyToMany(mappedBy = "events")
+    private List<SchedulerEntity> schedulers;
 }
