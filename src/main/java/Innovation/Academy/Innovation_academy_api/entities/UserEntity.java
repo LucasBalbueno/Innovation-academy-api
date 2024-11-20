@@ -1,5 +1,6 @@
 package Innovation.Academy.Innovation_academy_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,14 +52,16 @@ public class UserEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "registrations",
+            name = "Users_Courses",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private List<CourseEntity> courses;
 
     @OneToOne(mappedBy = "user")
-    @PrimaryKeyJoinColumn
     private UserPreferencesEntity userPreferences;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private SchedulerEntity scheduler;
 }
